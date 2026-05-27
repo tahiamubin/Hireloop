@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Button, Link } from "@heroui/react";
+import { Avatar, AvatarFallback, Button, Link } from "@heroui/react";
+import { authClient } from "@/lib/auth-client";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,6 +20,13 @@ export default function Navbar() {
     { label: "Pricing", href: "#" },
   ];
 
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
+  console.log(user);
+  const handleSignout = async () => {
+    await authClient.signOut();
+  };
+
   return (
     <header
       className={`
@@ -33,7 +41,10 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         {/* ── Brand ── */}
         <Link href="/" className="flex items-center gap-2 shrink-0">
-          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 shadow-lg shadow-violet-500/30">
+          <div
+            className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br
+           from-violet-500 to-indigo-600 shadow-lg shadow-violet-500/30"
+          >
             <svg
               width="18"
               height="18"
@@ -77,28 +88,52 @@ export default function Navbar() {
 
         {/* ── Desktop CTA ── */}
         <div className="hidden sm:flex items-center gap-3">
-          <span className="h-4 w-px bg-white/20" />
-          <Link
-            href={"/signin"}
-            className="text-sm font-medium text-violet-300 hover:text-violet-100 transition-colors duration-200"
-          >
-            Sign In
-          </Link>
-           <Link href={"/signup"}>
+          {user ? (
+            <>
+              <Avatar>
+                <Avatar.Image src={user?.image} name={user?.name} size="sm" />
+                <Avatar.Fallback>{user?.name[0]}</Avatar.Fallback>
+              </Avatar>
+
               <Button
+                onClick={handleSignout}
                 fullWidth
                 className="
-                bg-white text-[#0d0d0d] font-semibold text-sm h-10
-                rounded-xl shadow-lg shadow-black/30
-                hover:bg-white/90 active:scale-[0.98] transition-all duration-200
-              "
+            bg-white text-[#0d0d0d] font-semibold text-sm h-10
+            rounded-xl shadow-lg shadow-black/30
+            hover:bg-white/90 active:scale-[0.98] transition-all duration-200
+          "
               >
-                Get Started
+                Sign Up
               </Button>
-            </Link>
+            </>
+          ) : (
+            <>
+              <span className="h-4 w-px bg-white/20" />
+              <Link
+                href={"/signin"}
+                className="text-sm font-medium text-violet-300 hover:text-violet-100 transition-colors duration-200"
+              >
+                Sign In
+              </Link>
+              <Link href={"/signup"}>
+                <Button
+                  fullWidth
+                  className="
+            bg-white text-[#0d0d0d] font-semibold text-sm h-10
+            rounded-xl shadow-lg shadow-black/30
+            hover:bg-white/90 active:scale-[0.98] transition-all duration-200
+          "
+                >
+                  Get Started
+                </Button>
+              </Link>
+            </>
+          )}
         </div>
 
         {/* ── Mobile hamburger ── */}
+
         <button
           onClick={() => setIsMenuOpen((prev) => !prev)}
           className="sm:hidden flex flex-col justify-center items-center w-8 h-8 gap-1.5"
@@ -117,6 +152,7 @@ export default function Navbar() {
       </div>
 
       {/* ── Mobile dropdown ── */}
+
       <div
         className={`
           sm:hidden overflow-hidden transition-all duration-300 ease-in-out

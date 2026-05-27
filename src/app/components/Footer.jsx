@@ -47,9 +47,9 @@ function LinkedInIcon() {
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0d0d0d] text-white">
+    <footer className="bg-black text-white">
       {/* ── Main footer body ── */}
-      <div className="border-t border-white/[0.06]">
+      <div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
             {/* Brand column */}

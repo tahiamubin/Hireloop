@@ -1,4 +1,5 @@
 "use client";
+import { authClient } from "@/lib/auth-client";
 import { Check } from "@gravity-ui/icons";
 import {
   Button,
@@ -9,13 +10,25 @@ import {
   Label,
   TextField,
 } from "@heroui/react";
+import { redirect } from "next/navigation";
 import React from "react";
+import toast from "react-hot-toast";
 
 const signInPage = () => {
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const user = Object.fromEntries(formData.entries());
+    const { data, error } = await authClient.signIn.email({
+      email: user.email,
+      password: user.password,
+    });
+    if (data) {
+      redirect("/");
+    }
+    if (error) {
+      toast.error("Sign in not successful");
+    }
   };
   return (
     <div className="container mx-auto mt-40 mb-40  flex justify-center items-center">

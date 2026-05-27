@@ -52,6 +52,7 @@ export default function Banner() {
         </div> */}
 
         {/* ── Layer 3: radial purple glow above globe ── */}
+        
         <div
           className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px]
        bg-[radial-gradient(ellipse_60%_50%_at_50%_100%,rgba(109,40,217,0.28),transparent_70%)]
@@ -62,7 +63,7 @@ export default function Banner() {
         <div className="relative z-10 flex flex-col items-center justify-start pt-36 px-4 sm:px-6 lg:px-8">
           {/* Badge */}
           <div
-            className="flex items-center gap-2 bg-white/5 border rounded-full
+            className="flex items-center gap-2 bg-white/3 border rounded-full
          px-4 py-1.5 text-xs font-medium text-white/70 mb-8"
           >
             <span>🔥</span>

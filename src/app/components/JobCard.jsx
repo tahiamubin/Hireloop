@@ -24,7 +24,7 @@ const JobCard = () => {
       </div>
 
       {/* card */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-20">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
         {/* cards */}
         <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 hover:border-zinc-600 transition-all duration-300 group">
           <div className="mb-4">
@@ -61,7 +61,7 @@ const JobCard = () => {
 
       {/* Button */}
 
-      <div className="flex justify-center pb-10">
+      <div className="flex justify-center pb-5">
         <Button
           className=" bg-white  text-[#0d0d0d]  flex  font-semibold text-sm h-10
                       rounded-xl shadow-lg shadow-black/30 
