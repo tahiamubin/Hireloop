@@ -15,7 +15,7 @@ const JobCard = () => {
             </span>
             <span className="w-1.5 h-1.5 rounded-full bg-violet-500 inline-block" />
           </div>
-          <h1 className="text-4xl font-bold text-white leading-tight">
+          <h1 className="text-4xl font-medium text-white leading-tight">
             The roles you'd never
             <br />
             find by searching

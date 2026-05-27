@@ -15,8 +15,8 @@ export default function Navbar() {
 
   const navLinks = [
     { label: "Browse Jobs", href: "#" },
-    { label: "Company",     href: "#" },
-    { label: "Pricing",     href: "#" },
+    { label: "Company", href: "#" },
+    { label: "Pricing", href: "#" },
   ];
 
   return (
@@ -31,13 +31,23 @@ export default function Navbar() {
       `}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-
         {/* ── Brand ── */}
         <Link href="/" className="flex items-center gap-2 shrink-0">
           <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 shadow-lg shadow-violet-500/30">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M3 9C3 5.686 5.686 3 9 3s6 2.686 6 6-2.686 6-6 6" stroke="#fff" strokeWidth="2" strokeLinecap="round"/>
-              <circle cx="9" cy="9" r="2" fill="#fff"/>
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3 9C3 5.686 5.686 3 9 3s6 2.686 6 6-2.686 6-6 6"
+                stroke="#fff"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+              <circle cx="9" cy="9" r="2" fill="#fff" />
             </svg>
           </div>
           <span className="font-semibold text-white text-[15px] tracking-tight">
@@ -69,24 +79,23 @@ export default function Navbar() {
         <div className="hidden sm:flex items-center gap-3">
           <span className="h-4 w-px bg-white/20" />
           <Link
-            href="#"
+            href={"/signin"}
             className="text-sm font-medium text-violet-300 hover:text-violet-100 transition-colors duration-200"
           >
             Sign In
           </Link>
-          <Button
-            as={Link}
-            href="#"
-            size="sm"
-            className="
-              bg-white text-[#0d0d0d] font-semibold text-sm px-4 h-9
-              rounded-lg shadow-md shadow-black/20
-              hover:bg-white/90 hover:shadow-lg hover:shadow-violet-500/20
-              active:scale-[0.97] transition-all duration-200
-            "
-          >
-            Get Started
-          </Button>
+           <Link href={"/signup"}>
+              <Button
+                fullWidth
+                className="
+                bg-white text-[#0d0d0d] font-semibold text-sm h-10
+                rounded-xl shadow-lg shadow-black/30
+                hover:bg-white/90 active:scale-[0.98] transition-all duration-200
+              "
+              >
+                Get Started
+              </Button>
+            </Link>
         </div>
 
         {/* ── Mobile hamburger ── */}
@@ -95,9 +104,15 @@ export default function Navbar() {
           className="sm:hidden flex flex-col justify-center items-center w-8 h-8 gap-1.5"
           aria-label="Toggle menu"
         >
-          <span className={`block h-0.5 w-5 bg-white transition-all duration-300 ${isMenuOpen ? "rotate-45 translate-y-2" : ""}`} />
-          <span className={`block h-0.5 w-5 bg-white transition-all duration-300 ${isMenuOpen ? "opacity-0" : ""}`} />
-          <span className={`block h-0.5 w-5 bg-white transition-all duration-300 ${isMenuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+          <span
+            className={`block h-0.5 w-5 bg-white transition-all duration-300 ${isMenuOpen ? "rotate-45 translate-y-2" : ""}`}
+          />
+          <span
+            className={`block h-0.5 w-5 bg-white transition-all duration-300 ${isMenuOpen ? "opacity-0" : ""}`}
+          />
+          <span
+            className={`block h-0.5 w-5 bg-white transition-all duration-300 ${isMenuOpen ? "-rotate-45 -translate-y-2" : ""}`}
+          />
         </button>
       </div>
 
@@ -120,24 +135,24 @@ export default function Navbar() {
             </Link>
           ))}
           <Link
-            href="#"
+            href={"/signin"}
             className="text-violet-300 hover:text-violet-100 hover:bg-violet-500/10 text-base font-medium py-2.5 px-3 rounded-lg transition-colors duration-150 block mt-1"
           >
             Sign In
           </Link>
           <div className="pt-2 pb-1">
-            <Button
-              as={Link}
-              href="#"
-              fullWidth
-              className="
+            <Link href={"/signup"}>
+              <Button
+                fullWidth
+                className="
                 bg-white text-[#0d0d0d] font-semibold text-sm h-10
                 rounded-xl shadow-lg shadow-black/30
                 hover:bg-white/90 active:scale-[0.98] transition-all duration-200
               "
-            >
-              Get Started
-            </Button>
+              >
+                Get Started
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
