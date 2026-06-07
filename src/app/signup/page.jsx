@@ -10,6 +10,7 @@ import {
   Label,
   TextField,
 } from "@heroui/react";
+import { Radio, RadioGroup } from "@heroui/react";
 import { redirect } from "next/navigation";
 import React from "react";
 import toast from "react-hot-toast";
@@ -34,10 +35,10 @@ const signUpPage = () => {
     }
   };
   const handleSignIn = async () => {
-  const data = await authClient.signIn.social({
-    provider: "google",
-  });
-};
+    const data = await authClient.signIn.social({
+      provider: "google",
+    });
+  };
   return (
     <div className="container mx-auto mt-40 mb-40  flex justify-center items-center">
       <Form className="flex w-96 flex-col gap-4" onSubmit={onSubmit}>
@@ -66,6 +67,7 @@ const signUpPage = () => {
           <Input placeholder="Enter your name" />
           <FieldError />
         </TextField>
+        {/* Password */}
         <TextField
           isRequired
           minLength={8}
@@ -91,14 +93,47 @@ const signUpPage = () => {
           </Description>
           <FieldError />
         </TextField>
+
+        {/* radio group */}
+        <div className="flex flex-col gap-6">
+  
+          <RadioGroup
+            defaultValue="seeker"
+            name="role"
+            orientation="horizontal"
+          >
+            <Radio value="seeker">
+              <Radio.Control>
+                <Radio.Indicator />
+              </Radio.Control>
+              <Radio.Content>
+                <Label>Job seeker</Label>
+      
+              </Radio.Content>
+            </Radio>
+            <Radio value="recruiter">
+              <Radio.Control>
+                <Radio.Indicator />
+              </Radio.Control>
+              <Radio.Content>
+                <Label>Recruiter</Label>
+              </Radio.Content>
+            </Radio>
+            
+          </RadioGroup>
+        </div>
         <div>
           <Button type="submit" className={"bg-[#5C53FE] w-full"}>
             <Check />
             Submit
           </Button>
           <p className="text-center pt-2">Or,</p>
-          <Button onClick={handleSignIn} type="submit" className={"bg-white text-black mt-2 w-full"}>
-           <FcGoogle />
+          <Button
+            onClick={handleSignIn}
+            type="submit"
+            className={"bg-white text-black mt-2 w-full"}
+          >
+            <FcGoogle />
             Sign Up with google
           </Button>
         </div>

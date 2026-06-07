@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Avatar, AvatarFallback, Button, Link } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
 
+
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -22,15 +23,15 @@ export default function Navbar() {
 
   const { data: session } = authClient.useSession();
   const user = session?.user;
-  console.log(user);
+  //console.log(user);
   const handleSignout = async () => {
     await authClient.signOut();
   };
 
   return (
-    <header
+    <header 
       className={`
-        fixed top-0 left-0 right-0 z-50 transition-all duration-300
+         top-0 left-0 right-0 z-50 transition-all duration-300  
         ${
           isScrolled
             ? "bg-[#0d0d0d]/90 backdrop-blur-md border-b border-white/[0.06] shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
@@ -104,7 +105,7 @@ export default function Navbar() {
             hover:bg-white/90 active:scale-[0.98] transition-all duration-200
           "
               >
-                Sign Up
+                Sign Out
               </Button>
             </>
           ) : (
