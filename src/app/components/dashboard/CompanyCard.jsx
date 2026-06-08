@@ -40,7 +40,7 @@ const textAreaClass =
 export default function CompanyCard({recruiter , recruiterCompany}) {
   console.log(recruiter?.id)
   // 1. Core State
-  const [company, setCompany] = useState(null);
+  const [company, setCompany] = useState(recruiterCompany);
   const [isEditing, setIsEditing] = useState(false);
   const [errors, setErrors] = useState({});
 
@@ -145,7 +145,7 @@ export default function CompanyCard({recruiter , recruiterCompany}) {
   // --- SUB-VIEW 1: Empty Profile state ---
   // ✅ FIX: was `!company?._id && !isEditing` — _id never exists on local state,
   //         so the card view was never reached. Now correctly checks `!company`.
-  if (!company && !isEditing) {
+  if (!company?._id && !isEditing) {
     return (
       <div className="max-w-2xl mx-auto my-12 bg-zinc-950 border border-zinc-900 rounded-xl p-8 text-center space-y-6">
         <div className="w-16 h-16 bg-zinc-900/50 rounded-full flex items-center justify-center mx-auto border border-zinc-800">
