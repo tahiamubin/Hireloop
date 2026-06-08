@@ -13,16 +13,16 @@ export default function JobCard({ job }) {
     return numericAmount >= 1000 ? `${numericAmount / 1000}k` : amount;
   };
 
-  const salaryRange = job.minSalary && job.maxSalary
-    ? `$${formatSalary(job.minSalary)}–$${formatSalary(job.maxSalary)} / year`
-    : "Salary Negociable";
+  const salaryRange =
+    job.minSalary && job.maxSalary
+      ? `$${formatSalary(job.minSalary)}–$${formatSalary(job.maxSalary)} / year`
+      : "Salary Negociable";
 
   // Safely extract the ID string depending on your MongoDB data hydration setup
   const jobId = job._id?.$oid || job._id;
 
   return (
     <Card className="p-6 w-full max-w-[440px] border-none bg-zinc-900 text-zinc-100 rounded-[32px] shadow-2xl">
-      
       {/* Card Header: Company Info & Job Title */}
       <Card.Header className="flex flex-col items-start gap-4 p-0 pb-3">
         <div className="flex items-center gap-3">
@@ -37,11 +37,11 @@ export default function JobCard({ job }) {
             {job.companyName || "Confidential"}
           </span>
         </div>
-        
+
         <Card.Title className="text-3xl font-semibold tracking-tight text-white leading-tight">
           {job.jobTitle}
         </Card.Title>
-        
+
         {job.responsibilities && (
           <Card.Description className="text-base text-zinc-400 line-clamp-2">
             {job.responsibilities}
@@ -78,7 +78,9 @@ export default function JobCard({ job }) {
             <div className="flex justify-center items-center bg-purple-500/20 rounded-full w-5 h-5">
               <CircleDollar className="text-purple-400 w-3 h-3" />
             </div>
-            <span className="text-sm font-medium text-zinc-200">{salaryRange}</span>
+            <span className="text-sm font-medium text-zinc-200">
+              {salaryRange}
+            </span>
           </div>
         </div>
 
@@ -86,10 +88,16 @@ export default function JobCard({ job }) {
         {(job.requirements || job.benefits) && (
           <div className="text-xs text-zinc-500 space-y-1 border-t border-zinc-800/60 pt-3">
             {job.requirements && (
-              <p><strong className="text-zinc-400">Requirements:</strong> {job.requirements}</p>
+              <p>
+                <strong className="text-zinc-400">Requirements:</strong>{" "}
+                {job.requirements}
+              </p>
             )}
             {job.benefits && (
-              <p><strong className="text-zinc-400">Benefits:</strong> {job.benefits}</p>
+              <p>
+                <strong className="text-zinc-400">Benefits:</strong>{" "}
+                {job.benefits}
+              </p>
             )}
           </div>
         )}
@@ -98,7 +106,7 @@ export default function JobCard({ job }) {
       {/* Card Footer: Action Button */}
       <Card.Footer className="p-0 pt-4">
         <Link
-          href={`/jobs/${jobId}`}
+          href={`/browse-jobs/${jobId}`}
           className="group flex justify-start items-center gap-2 bg-transparent hover:bg-zinc-800/40 p-0 text-base font-medium text-white transition-all duration-200"
           variant="light"
           disableRipple
@@ -107,7 +115,6 @@ export default function JobCard({ job }) {
           <ArrowRight className="group-hover:translate-x-1 text-zinc-400 group-hover:text-white w-4 h-4 transition-transform duration-200" />
         </Link>
       </Card.Footer>
-
     </Card>
   );
 }
