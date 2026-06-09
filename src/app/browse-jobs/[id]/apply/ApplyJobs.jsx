@@ -1,6 +1,7 @@
 "use client";
 
 import { submitApplication } from "@/lib/actions/application";
+import { getApplicationByApplicant } from "@/lib/api/application";
 import {
   Button,
   Description,
@@ -43,7 +44,8 @@ const JobApply = ({ job, applicant }) => {
       ...formData,
     };
     console.log("Submitting Application:", submissionData);
-
+    
+    
     const res = await submitApplication(submissionData)
     if (res.insertedId){
         //alert("Application added successfully!")
@@ -55,6 +57,7 @@ const JobApply = ({ job, applicant }) => {
   return (
     <div className="max-w-xl mx-auto p-8  bg-white dark:bg-zinc-900 rounded-xl shadow-sm border border-zinc-200 dark:border-zinc-800">
       <div className="mb-6">
+
         <span className="text-xs font-semibold  text-[#5C53FE] uppercase tracking-wider">
           Application Form
         </span>
