@@ -1,4 +1,4 @@
-"use client";
+
 import { getJobById } from "@/lib/api/jobs";
 import { CircleDollar } from "@gravity-ui/icons";
 import { Button } from "@heroui/react";
@@ -167,14 +167,17 @@ const page = async ({ params }) => {
           </div>
 
           {/* Action Button: Apply Routing Link Container */}
-          <Button
-            as={Link}
-            href={`/jobs/${id}/apply`}
+          
+          <Link
+          
+           href={`/browse-jobs/${id}/apply`}
             className="w-full bg-purple-600 hover:bg-purple-500 text-white font-medium py-6 rounded-xl shadow-lg transition-colors flex items-center justify-center gap-2"
             endContent={<ArrowUpRight className="w-4 h-4" />}
           >
             Apply For This Job
-          </Button>
+          </Link>
+         
+          
         </aside>
       </div>
     </main>

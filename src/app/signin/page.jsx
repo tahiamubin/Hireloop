@@ -10,11 +10,13 @@ import {
   Label,
   TextField,
 } from "@heroui/react";
-import { redirect } from "next/navigation";
+import Link from "next/link";
+import { redirect, useSearchParams } from "next/navigation";
 import React from "react";
 import toast from "react-hot-toast";
 
 const signInPage = () => {
+ 
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -81,6 +83,16 @@ const signInPage = () => {
           <Button type="reset" variant="secondary" className={"text-[#5C53FE]"}>
             Reset
           </Button>
+        </div>
+        <div className="text-center pt-4 border-t border-zinc-100
+         dark:border-zinc-800 mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+          New to HireLoop?{" "}
+          <Link
+            href="/auth/signup"
+            className="font-medium cursor-pointer text-sm text-blue-600 dark:text-blue-400"
+          >
+            Create an account
+          </Link>
         </div>
       </Form>
     </div>

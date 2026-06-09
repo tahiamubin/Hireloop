@@ -12,11 +12,12 @@ import {
 } from "@heroui/react";
 import { Radio, RadioGroup } from "@heroui/react";
 import { redirect } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 
 const signUpPage = () => {
+  const { role, setRole } = useState("seeker");
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -26,6 +27,7 @@ const signUpPage = () => {
       name: user.name,
       password: user.password,
       image: user.image,
+      role: user.role,
     });
     if (data) {
       redirect("/");
@@ -96,8 +98,9 @@ const signUpPage = () => {
 
         {/* radio group */}
         <div className="flex flex-col gap-6">
-  
           <RadioGroup
+            value={role} 
+            onValueChange={setRole} 
             defaultValue="seeker"
             name="role"
             orientation="horizontal"
@@ -108,7 +111,6 @@ const signUpPage = () => {
               </Radio.Control>
               <Radio.Content>
                 <Label>Job seeker</Label>
-      
               </Radio.Content>
             </Radio>
             <Radio value="recruiter">
@@ -119,7 +121,6 @@ const signUpPage = () => {
                 <Label>Recruiter</Label>
               </Radio.Content>
             </Radio>
-            
           </RadioGroup>
         </div>
         <div>

@@ -12,6 +12,7 @@ export default function JobCard({ job }) {
     const numericAmount = parseInt(amount, 10);
     return numericAmount >= 1000 ? `${numericAmount / 1000}k` : amount;
   };
+  console.log('logo',job.companyLogo)
 
   const salaryRange =
     job.minSalary && job.maxSalary
@@ -20,6 +21,7 @@ export default function JobCard({ job }) {
 
   // Safely extract the ID string depending on your MongoDB data hydration setup
   const jobId = job._id?.$oid || job._id;
+  
 
   return (
     <Card className="p-6 w-full max-w-[440px] border-none bg-zinc-900 text-zinc-100 rounded-[32px] shadow-2xl">

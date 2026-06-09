@@ -5,6 +5,8 @@ import { Button } from "@heroui/react";
 import React from "react";
 import { FaPlus } from "react-icons/fa";
 
+
+
 const companyRecruiterPage = async () => {
   const recruiter = await getUserSession();
   const company = await getRecruiterCompany(recruiter?.id);

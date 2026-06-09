@@ -18,7 +18,7 @@ export default function Navbar() {
   const navLinks = [
     { label: "Browse Jobs", href: "/browse-jobs" },
     { label: "Company", href: "#" },
-    { label: "Pricing", href: "#" },
+    { label: "Pricing", href: "/pricing" },
   ];
 
   const { data: session } = authClient.useSession();

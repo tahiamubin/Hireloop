@@ -9,6 +9,7 @@ import Stats from "./Stats";
 import FeaturedJob from "./FeaturedJob";
 import Pricing from "./Pricing";
 import NextRole from "./NextRole";
+import Faq from "./Faq";
 
 const stats = [
   { icon: "💼", value: "50K", label: "Active Jobs" },
@@ -171,7 +172,8 @@ export default function Banner() {
       {/* jobs card */}
       <JobCards></JobCards>
       <FeaturedJob></FeaturedJob>
-      <Pricing></Pricing>
+      {/* <Pricing></Pricing> */}
+      <Faq></Faq>
       <NextRole></NextRole>
     </div>
   );
