@@ -17,7 +17,8 @@ import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 
 const signUpPage = () => {
-  const { role, setRole } = useState("seeker");
+  const [role, setRole ] = useState("seeker");
+  const plan = role === "seeker" ? "seeker_free" : "recruiter_free";
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -28,6 +29,7 @@ const signUpPage = () => {
       password: user.password,
       image: user.image,
       role: user.role,
+      plan,
     });
     if (data) {
       redirect("/");
@@ -99,8 +101,8 @@ const signUpPage = () => {
         {/* radio group */}
         <div className="flex flex-col gap-6">
           <RadioGroup
-            value={role} 
-            onValueChange={setRole} 
+            value={role}
+            onValueChange={setRole}
             defaultValue="seeker"
             name="role"
             orientation="horizontal"

@@ -120,9 +120,12 @@ const applyJobPage = async ({ params }) => {
 
               {/* Actions */}
               <div className="flex gap-2.5">
-                <button className="flex-1 py-2.5 rounded-lg bg-[#5C53FE] hover:bg-white hover:text-black text-xs font-semibold transition-colors">
-                  Upgrade to Pro
-                </button>
+                <Link href={"/pricing"}>
+                  <button className="flex-1 py-2.5 px-3= rounded-lg bg-[#5C53FE] hover:bg-white hover:text-black text-xs font-semibold transition-colors">
+                    Upgrade to Pro
+                  </button>
+                </Link>
+
                 <button className="px-4 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-700 text-xs text-zinc-500 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
                   Maybe later
                 </button>
