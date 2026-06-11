@@ -1,18 +1,18 @@
 import { getJobById } from "@/lib/api/jobs";
 import { getUserSession } from "@/lib/core/session";
-import { ShieldExclamation } from "@gravity-ui/icons";
+import { CircleInfo, ShieldExclamation } from "@gravity-ui/icons";
 import Link from "next/link";
 
 import React from "react";
 import ApplyJobs from "./ApplyJobs";
 import { getApplicationByApplicant } from "@/lib/api/application";
+import { Rocket } from "lucide-react";
+import { getPlanById } from "@/lib/api/plan";
 
 const applyJobPage = async ({ params }) => {
   const { id } = await params;
   const user = await getUserSession();
-  // if(!user){
-  //     redirect('/signin')
-  // }
+
   if (user.role != "seeker") {
     return (
       <div className="w-full min-h-[80vh] flex flex-col justify-center items-center text-white p-6">
@@ -39,101 +39,98 @@ const applyJobPage = async ({ params }) => {
   }
 
   const job = await getJobById(id);
-  console.log("server", job);
-  const plan = {
-    name: "Free",
-    maxApplicationPerMonth: 3,
-  };
+  //console.log("server", job);
+  const plan = await getPlanById(user?.plan || "seeker_free");
+ // console.log("plan response:", plan);
 
   const applications = await getApplicationByApplicant(user?.id);
-
+  //console.log('user id',user?.id)
+  const applicationCount = applications?.length || 0;
+  //console.log(applicationCount)
+  const hasReachedLimit = applicationCount >= plan.maxApplicationsPerMonth;
+  const usagePercentage = Math.min(
+    (applicationCount / plan.maxApplicationsPerMonth) * 100,
+    100,
+  );
   return (
-    <div>
-      <h1>
-        {applications.length < plan.maxApplicationPerMonth ? (
-          <ApplyJobs applicant={user} job={job} />
-        ) : (
-          <div className="flex justify-center px-4 py-8">
-            <div className="relative w-full max-w-sm rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-7 overflow-hidden">
-              {/* Red top bar */}
-              <div className="absolute top-0 left-0 right-0 h-[3px] bg-[#5C53FE] rounded-t-2xl" />
+    <div className="w-full min-h-screen bg-zinc-950 text-zinc-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto space-y-8">
+        {/* 1. Usage & Quota Tracker Card */}
+        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-lg">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+            <div>
+              <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
+                Monthly Quota Status
+              </span>
+              <h2 className="text-lg font-bold text-zinc-100 mt-0.5">
+                You have applied to{" "}
+                <span className="text-blue-400">{applicationCount}</span> out of{" "}
+                <span className="text-zinc-400">
+                  {plan.maxApplicationsPerMonth}
+                </span>{" "}
+                positions
+              </h2>
+            </div>
+            <span className="self-start sm:self-center px-2.5 py-1 text-xs font-medium rounded-full bg-zinc-800 text-zinc-300 border border-zinc-700">
+              Current Plan:{" "}
+              <strong className="text-white font-semibold">{plan.name}</strong>
+            </span>
+          </div>
 
-              {/* Header */}
-              <div className="flex items-start gap-3 mb-5">
-                <div className="w-10 h-10 rounded-full bg-red-50 dark:bg-red-950 flex items-center justify-center shrink-0">
-                  <i
-                    className="ti ti-alert-circle text-red-500 text-xl"
-                    aria-hidden="true"
-                  />
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100 mb-1">
-                    You've exceeded your free plan
-                  </p>
-                  <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
-                    You've used all {plan.maxApplicationPerMonth} of your
-                    monthly job applications. Upgrade to keep applying without
-                    interruption.
-                  </p>
-                </div>
-              </div>
+          {/* Progress Bar */}
+          <div className="w-full bg-zinc-800 h-2.5 rounded-full overflow-hidden mb-5">
+            <div
+              className={`h-full transition-all duration-500 rounded-full ${
+                hasReachedLimit
+                  ? "bg-red-500"
+                  : usagePercentage > 66
+                    ? "bg-amber-500"
+                    : "bg-blue-500"
+              }`}
+              style={{ width: `${usagePercentage}%` }}
+            />
+          </div>
 
-              {/* Progress */}
-              <div className="bg-zinc-100 dark:bg-zinc-800 rounded-lg px-4 py-3 mb-5">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-xs text-zinc-500 dark:text-zinc-400">
-                    Monthly applications
-                  </span>
-                  <span className="text-xs font-medium text-red-700 dark:text-red-400">
-                    {applications.length} / {plan.maxApplicationPerMonth} used
-                  </span>
-                </div>
-                <div className="h-1.5 bg-red-100 dark:bg-red-950 rounded-full overflow-hidden">
-                  <div className="h-full w-full bg-red-500 rounded-full" />
-                </div>
-              </div>
-
-              {/* Features */}
-              <div className="border border-zinc-200 dark:border-zinc-800 rounded-lg px-4 py-3 mb-5">
-                <p className="text-[11px] font-medium text-zinc-400 uppercase tracking-widest mb-3">
-                  What you get with Pro
-                </p>
-                <div className="flex flex-col gap-2">
-                  {[
-                    "30 applications per month",
-                    "Unlimited saved jobs",
-                    "Advanced tracking dashboard",
-                  ].map((feature) => (
-                    <div
-                      key={feature}
-                      className="flex items-center gap-2.5 text-xs text-zinc-700 dark:text-zinc-300"
-                    >
-                      <i
-                        className="ti ti-circle-check text-emerald-500 text-base"
-                        aria-hidden="true"
-                      />
-                      {feature}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Actions */}
-              <div className="flex gap-2.5">
-                <Link href={"/pricing"}>
-                  <button className="flex-1 py-2.5 px-3= rounded-lg bg-[#5C53FE] hover:bg-white hover:text-black text-xs font-semibold transition-colors">
-                    Upgrade to Pro
-                  </button>
-                </Link>
-
-                <button className="px-4 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-700 text-xs text-zinc-500 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
-                  Maybe later
-                </button>
-              </div>
+          {/* Upsell Alert Block */}
+          <div className="flex items-start gap-3 bg-blue-950/30 border border-blue-900/50 rounded-xl p-4 text-sm text-blue-300/90">
+            <Rocket className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
+            <div className="flex-1 sm:flex sm:items-center sm:justify-between gap-4">
+              <p>
+                Need to apply for more positions? Upgrade your account to unlock
+                unlimited job submissions.
+              </p>
+              <Link
+                href="/pricing"
+                className="inline-block mt-2 sm:mt-0 whitespace-nowrap text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded-lg transition"
+              >
+                View Plans
+              </Link>
             </div>
           </div>
+        </div>
+
+        {/* 2. Form Rendering and Dynamic Limit Enforcement Block */}
+        {hasReachedLimit ? (
+          /* Lockout State View */
+          <div className="bg-zinc-900/50 border border-dashed border-zinc-800 rounded-2xl p-8 text-center flex flex-col items-center justify-center">
+            <div className="w-10 h-10 bg-zinc-800 text-zinc-400 rounded-full flex items-center justify-center mb-3">
+              <CircleInfo className="w-5 h-5" />
+            </div>
+            <h4 className="text-base font-semibold text-zinc-200">
+              Application Limit Reached
+            </h4>
+            <p className="text-sm text-zinc-500 max-w-sm mt-1">
+              You have exhausted your free credits for this calendar cycle.
+              Upgrade your tier to resume submitting applications immediately.
+            </p>
+          </div>
+        ) : (
+          /* Active Form View */
+          <div className="animate-in fade-in-50 duration-300">
+            <ApplyJobs applicant={user} job={job} />
+          </div>
         )}
-      </h1>
+      </div>
     </div>
   );
 };

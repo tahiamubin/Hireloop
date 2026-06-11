@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { Avatar, AvatarFallback, Button, Link } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
 
-
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -20,6 +19,10 @@ export default function Navbar() {
     { label: "Company", href: "#" },
     { label: "Pricing", href: "/pricing" },
   ];
+   const dashBoardLinks = {
+    seeker: "/dashboard/seeker",
+    recruiter: "/dashboard/recruiter",
+  };
 
   const { data: session } = authClient.useSession();
   const user = session?.user;
@@ -27,9 +30,17 @@ export default function Navbar() {
   const handleSignout = async () => {
     await authClient.signOut();
   };
+ 
+
+  if (user?.email) {
+    navLinks.push({
+      label: "Dashboard",
+      href: dashBoardLinks[user?.role || "seeker"],
+    });
+  }
 
   return (
-    <header 
+    <header
       className={`
          top-0 left-0 right-0 z-50 transition-all duration-300  
         ${

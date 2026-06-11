@@ -1,5 +1,5 @@
-import { serverFetch } from "../core/server"
+import { serverFetch } from "../core/server";
 
-export const getApplicationByApplicant = async (applicationId) =>{
-    return serverFetch(`/jobs/application?applicationId${applicationId}`)
-}
+export const getApplicationByApplicant = async (applicantId) => {
+  return serverFetch(`/jobs/application?applicantId=${applicantId}`);
+};

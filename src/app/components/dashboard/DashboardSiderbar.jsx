@@ -1,3 +1,4 @@
+import { getUserSession } from "@/lib/core/session";
 import {
   Bars,
   Bell,
@@ -7,12 +8,18 @@ import {
   Factory,
   Briefcase,
   Circles4Square,
+  Magnifier,
+  Bookmark,
+  FileText,
+  CreditCard,
 } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
 import Link from "next/link";
 
-export function DashboardSidebar() {
-  const navItems = [
+export async function DashboardSidebar() {
+  const user = await getUserSession()
+ 
+  const recruiterNavKinks = [
     { icon: Circles4Square, label: "Dashboard", href: "/dashboard/recruiter" },
     {
       icon: Factory,
@@ -32,6 +39,32 @@ export function DashboardSidebar() {
 
     { icon: Gear, label: "Settings", href: "/dashboard/recruiter/company" },
   ];
+  const seekerNavLinks = [
+        { icon: House, href: "/dashboard/seeker", label: "Dashboard" },
+        { icon: Magnifier, href: "/dashboard/seeker/jobs", label: "Jobs" },
+        { icon: Bookmark, href: "/dashboard/seeker/saved-jobs", label: "Saved Jobs" },
+        { icon: FileText, href: "/dashboard/seeker/applications", label: "Applications" },
+        { icon: CreditCard, href: "/dashboard/seeker/billing", label: "Billing" },
+        { icon: Gear, href: "/settings", label: "Settings" },
+    ];
+
+    // const adminNavLinks = [
+    //     { icon: House, href: "/dashboard/admin", label: "Dashboard" },
+    //     { icon: Users, href: "/dashboard/admin/users", label: "Users" },
+    //     { icon: Building, href: "/dashboard/admin/companies", label: "Companies" },
+    //     { icon: Briefcase, href: "/dashboard/admin/jobs", label: "Jobs" },
+    //     { icon: CreditCard, href: "/dashboard/admin/payments", label: "Payments" },
+    //     { icon: Gear, href: "/dashboard/admin/settings", label: "Settings" },
+    // ];
+
+    const navLinksMap ={
+      seeker: seekerNavLinks,
+      recruiter: recruiterNavKinks
+    }
+    const navItems = navLinksMap[user?.role || 'seeker']
+
+
+
   const navContent = (
     <nav className="flex flex-col gap-1">
       {navItems.map((item) => (

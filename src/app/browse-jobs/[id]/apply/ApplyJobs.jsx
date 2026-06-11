@@ -43,7 +43,7 @@ const JobApply = ({ job, applicant }) => {
       applicantEmail: applicant?.email,
       ...formData,
     };
-    console.log("Submitting Application:", submissionData);
+    //console.log("Submitting Application:", submissionData);
     
     
     const res = await submitApplication(submissionData)
