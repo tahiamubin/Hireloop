@@ -6,6 +6,7 @@ import { getUserSession } from "@/lib/core/session";
 import { Table, Chip, Button, Tooltip } from "@heroui/react";
 
 import { Eye, Edit2, Trash2 } from "lucide-react";
+import PostJobForm from "./PostJobForm";
 
 const RecruiterJobsPage = async () => {
     // const company = await getLoggedInRecruiterCompany()
@@ -28,7 +29,8 @@ const RecruiterJobsPage = async () => {
      
 
       {/* add new job */}
-      <PostNewJobModal companyRecruiter={companyRecruiter} ></PostNewJobModal>
+      {/* <PostNewJobModal companyRecruiter={companyRecruiter} ></PostNewJobModal> */}
+      <PostJobForm company={companyRecruiter} user={recruiter}></PostJobForm>
     </div>
   );
 };

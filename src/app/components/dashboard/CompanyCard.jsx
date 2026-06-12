@@ -117,13 +117,15 @@ export default function CompanyCard({recruiter , recruiterCompany}) {
       employeeCount: employeeCount || "1-10 employees",
       description,
       logo: logoUrl || (company ? company.logo : ""),
-      status: company ? company.status : "Pending",
+      status: company && company.status ? company.status : "Pending",
       recruiterId: recruiter?.id,
     };
 
     setCompany(newCompanyData);
     const payload = await  createCompany(newCompanyData)
     if (payload.insertedId){
+      const newCompany = {...company, _id: payload.insertedId}
+      setCompany(newCompany)
       toast.success('Company profile created successfully!')
     }
     

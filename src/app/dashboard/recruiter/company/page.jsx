@@ -10,7 +10,7 @@ import { FaPlus } from "react-icons/fa";
 const companyRecruiterPage = async () => {
   const recruiter = await getUserSession();
   const company = await getRecruiterCompany(recruiter?.id);
-  console.log("company", company);
+  //console.log("company", company);
 
   return (
     <div>

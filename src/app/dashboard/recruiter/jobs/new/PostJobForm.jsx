@@ -18,16 +18,17 @@ import {
 import { Briefcase, Globe } from "@gravity-ui/icons";
 import { createJob } from "@/lib/actions/jobs";
 import { redirect } from "next/navigation";
+import { div } from "motion/react-client";
 
 export default function PostJobForm({ company , userId}) {
    
     // Mock configuration for recruiter's authenticated state
-    console.log("PostJobForm received company prop:", company);
-    const [company] = useState({
-        name: "Acme Corp (Auto-filled)",
-        id: "company_123",
-        isApproved: true,
-    });
+    //console.log("PostJobForm received company prop:", company);
+    // const [company] = useState({
+    //     name: "Acme Corp (Auto-filled)",
+    //     id: "company_123",
+    //     isApproved: true,
+    // });
 
     const [isRemote, setIsRemote] = useState(false);
     const [errors, setErrors] = useState({});
@@ -93,7 +94,7 @@ export default function PostJobForm({ company , userId}) {
     const listItemClasses = "flex items-center justify-between p-2 rounded-md hover:bg-zinc-800 cursor-pointer text-sm text-zinc-200 outline-none data-[focused=true]:bg-zinc-800";
 
     return (
-        <div className="min-h-screen bg-[#0d0d0e] text-white py-12 px-4 sm:px-6 lg:px-8">
+        <div className="w-full flex items-center justify-center bg-[#0d0d0e] text-white py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto bg-[#121214] border border-zinc-900 rounded-xl p-8 shadow-2xl">
 
                 {/* Form Header block */}
@@ -102,17 +103,24 @@ export default function PostJobForm({ company , userId}) {
                     <p className="text-zinc-400 text-sm mt-1">
                         Fill out the details below to publish your open position.
                     </p>
+                    
 
                     {/* Company verification status panel */}
                     <div className="mt-4 inline-flex items-center gap-2 bg-zinc-900/50 border border-zinc-800 rounded-lg px-3 py-1.5 text-xs text-zinc-400">
                         <Briefcase size={14} className="text-zinc-500" />
-                        Posting as: <span className="font-semibold text-zinc-300">{company.name}</span>
-                        <span className="text-emerald-500 font-medium bg-emerald-950/30 px-1.5 py-0.5 rounded border border-emerald-900/50">Approved</span>
+                        Posting as:
+                         <span className="font-semibold text-zinc-300">{company.name}</span>
+                        <span className="text-emerald-500 font-medium bg-emerald-950/30 px-1.5 py-0.5 rounded border
+                         border-emerald-900/50">{company.status}</span>
                     </div>
                 </div>
 
+                {
+                    company.status === 'Pending' &&  <>please wait to get approval</>
+                }
+
                 {/* Hero UI Main Form Handler */}
-                <Form onSubmit={handleSubmit} className="space-y-8" validationErrors={errors} validationBehavior='aria'>
+               { company.status ==='Approved' && <Form onSubmit={handleSubmit} className="space-y-8" validationErrors={errors} validationBehavior='aria'>
 
                     {/* SECTION 1: Job Information */}
                     <Fieldset className="space-y-6 w-full">
@@ -286,7 +294,7 @@ export default function PostJobForm({ company , userId}) {
                             Post Job
                         </Button>
                     </div>
-                </Form>
+                </Form>}
             </div>
         </div>
     );
