@@ -6,13 +6,22 @@ export const getUserSession = async () => {
   const session = await auth.api.getSession({
     headers: await headers(), // some endpoints might require headers
   });
+  //console.log(session)
   return session?.user || null;
+};
+
+//jwt
+export const getUserToken = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  return session?.session.token || null;
 };
 
 export const requireRole = async (role) => {
   const user = await getUserSession();
-  if (!user){
-    redirect('/signin')
+  if (!user) {
+    redirect("/signin");
   }
   if (user?.role !== role) {
     redirect("/unauthorized");
