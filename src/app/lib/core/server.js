@@ -42,11 +42,14 @@ export const serverMutation = async (path, data, method = "POST") => {
   return handleStatusCode(res);
 };
 
+
+
 const handleStatusCode = (res) => {
   if (res.status === 403) {
     redirect("/unauthorized");
   } else if (res.status === 400) {
-    redirect("forbidden");
+    redirect("/forbidden");
   }
   return res.json();
 };
+ 

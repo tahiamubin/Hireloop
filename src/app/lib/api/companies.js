@@ -2,7 +2,7 @@ import { protectedFetch, serverFetch } from "../core/server";
 import { getUserSession } from "../core/session";
 
 export const getCompany = async () => {
-  //return serverFetch(`/api/companies`);
+  // return serverFetch(`/api/companies`);
   return protectedFetch(`/api/companies`);
 };
 
