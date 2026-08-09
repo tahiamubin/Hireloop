@@ -41,7 +41,7 @@ const ClosedIcon = () => (
 // --- Stats data (replace with your real data / API response) ---
 
 const stats = [
-  { icon: <JobPostIcon />,    label: "Total Job Posts",   value: 48 },
+  // { icon: <JobPostIcon />,    label: "Total Job Posts",   value: 48 },
   { icon: <ApplicantsIcon />, label: "Total Applicants",  value: 1284 },
   { icon: <ActiveJobsIcon />, label: "Active Jobs",       value: 18 },
   { icon: <ClosedIcon />,     label: "Jobs Closed",       value: 32 },

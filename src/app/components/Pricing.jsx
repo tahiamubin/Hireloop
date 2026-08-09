@@ -23,11 +23,11 @@ const Pricing = () => {
         </div>
 
         {/* Heading */}
-        {/* <div className="text-center mb-8">
+        <div className="text-center mb-8">
           <p className="text-white text-4xl font-medium leading-snug">
             Pay for the leverage, <br /> not the listings
           </p>
-        </div> */}
+        </div>
 
         {/* Toggle */}
         <div className="flex justify-center mb-10">
